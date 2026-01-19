@@ -138,14 +138,15 @@ core.logallrefupdates=true
  │   ├─ Navbar.jsx
  │   ├─ Hero.jsx
  │   ├─ About.jsx
- │   ├─ Projects.jsx
  │   ├─ Education.jsx
+ │   ├─ Projects.jsx
  │   ├─ Skills.jsx
  │   ├─ Contact.jsx
  │   └─ Footer.jsx
  ├─ App.jsx
- ├─ main.jsx
- └─ index.css`}</CodeBlock>
+ ├─ App.css
+ ├─ index.css
+ └─ main.jsx`}</CodeBlock>
 
                     <h3 className="font-semibold text-lg mt-6">Example: Hero.jsx</h3>
                     <CodeBlock>{`import { motion } from 'framer-motion';
