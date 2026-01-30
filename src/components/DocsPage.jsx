@@ -134,12 +134,18 @@ core.logallrefupdates=true
                     </p>
 
                     <CodeBlock>{`src/
+ ├─ components/
+ │   ├─ CircularGallery.jsx
+ ├─ constants/
+ │   ├─ constants.jsx
  ├─ sections/
  │   ├─ Navbar.jsx
  │   ├─ Hero.jsx
  │   ├─ About.jsx
  │   ├─ Education.jsx
  │   ├─ Projects.jsx
+ │   ├─ ImageShowcase.jsx
+ │   ├─ VideoShowcase.jsx
  │   ├─ Skills.jsx
  │   ├─ Contact.jsx
  │   └─ Footer.jsx
@@ -148,23 +154,1087 @@ core.logallrefupdates=true
  ├─ index.css
  └─ main.jsx`}</CodeBlock>
 
-                    <h3 className="font-semibold text-lg mt-6">Example: Hero.jsx</h3>
-                    <CodeBlock>{`import { motion } from 'framer-motion';
+                    <h3 className="font-semibold text-lg mt-6">App.jsx</h3>
+                    <CodeBlock>{`import { useEffect } from "react";
+import Lenis from "lenis";
 
-export default function Hero() {
+import "./App.css";
+import Navbar from "./sections/Navbar";
+import Hero from "./sections/Hero";
+import About from "./sections/About";
+import Projects from "./sections/Projects";
+import ImageShowcase from "./sections/ImageShowcase";
+import VideoShowcase from "./sections/VideoShowcase";
+import Education from "./sections/Education";
+import Skills from "./sections/Skills";
+import Contact from "./sections/Contact";
+import Footer from "./sections/Footer";
+
+function App() {
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 3.5,
+      easing: (t) => 1 - Math.pow(1 - t, 4),
+      smoothWheel: true,
+      smoothTouch: false,
+    });
+
+    const raf = (time) => {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    };
+
+    requestAnimationFrame(raf);
+
+    return () => lenis.destroy();
+  }, []);
+
   return (
-    <section className="min-h-screen flex items-center justify-center bg-linear-to-b from-white to-slate-100">
-      <motion.h1
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="text-5xl md:text-6xl font-extrabold text-slate-900"
-      >
-        Hello, I'm Developer
-      </motion.h1>
-    </section>
+    <div className="relative min-h-screen overflow-hidden">
+      <Navbar />
+
+      <main className="flex flex-col p-5 lg:p-10">
+        <Hero />
+        <About />
+        <Projects />
+        <ImageShowcase/>
+        <VideoShowcase/>
+        <Education />
+        <Skills />
+        <Contact />
+      </main>
+
+      <Footer />
+    </div>
   );
-}`}</CodeBlock>
+}
+
+export default App;`}</CodeBlock>
+
+                    <h3 className="font-semibold text-lg mt-6">Navbar.jsx</h3>
+                    <CodeBlock>{`import { useState } from 'react'
+import { NAVIGATION_LINKS } from '../constants/constants';
+import { FaTimes } from 'react-icons/fa';
+import { FaBars } from 'react-icons/fa6';
+import { AnimatePresence, motion } from 'motion/react';
+
+function Navbar() {
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    const toggleMobileMenu = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen);
+    };
+
+    const handleLinkClick = (e, href) => {
+        e.preventDefault();
+        const targetElement = document.querySelector(href);
+        if (targetElement) {
+            const offset = -25;
+            const elemantPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elemantPosition + window.scrollY + offset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth"
+            });
+            setIsMobileMenuOpen(false);
+        }
+    };
+
+    return (
+        <div>
+            <nav className='fixed left-0 right-0 top-4 z-50'>
+                {/* Desktop Navbar */}
+                <div className='mx-auto hidden max-w-2xl items-center justify-center rounded-lg border border-stone-50/30 bg-black/20 py-3 backdrop-blur-lg lg:flex'>
+                    <div className='flex items-center justify-center gap-6'>
+                        <div>
+                            <a href="/">
+                                <img src="image.decorative/Pachara.png" width={100} alt="Logo" />
+                            </a>
+                        </div>
+                        <div>
+                            <ul className='flex items-center gap-4'>
+                                {NAVIGATION_LINKS.map((item, index) => (
+                                    <li key={index}>
+                                        <a href={item.href} onClick={(e) => handleLinkClick(e, item.href)} className="text-white hover:text-stone-300 transition-colors duration-300">
+                                            {item.label}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {/* Mobile Navbar */}
+                <div className='rounded-lg backdrop-blur-md lg:hidden'>
+                    <div className='flex items-center justify-between mx-5'>
+                        <div>
+                            <a href="/">
+                                <img src="image.decorative/Pachara.png" width={100} alt="Logo" />
+                            </a>
+                        </div>
+                        <div>
+                            <button className='focus:outline-none lg:hidden' onClick={toggleMobileMenu}>
+                                {isMobileMenuOpen ? (
+                                    <FaTimes className='text-white' size={30} />
+                                ) : (
+                                    <FaBars className='text-white' size={30} />
+                                )}
+                            </button>
+                        </div>
+                    </div>
+                    <AnimatePresence>
+                        {isMobileMenuOpen && (
+                            <motion.ul
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                transition={{ duration: 0.2, ease: "easeInOut" }}
+                                className="mx-4 mb-4 flex flex-col gap-4 backdrop-blur-md rounded-md p-4"
+                            >
+                                {NAVIGATION_LINKS.map((item, index) => (
+                                    <li key={index}>
+                                        <a
+                                            href={item.href}
+                                            className="block w-full text-[#ffffff] text-lg hover:text-purple-400 transition-colors"
+                                            onClick={(e) => handleLinkClick(e, item.href)}
+                                        >
+                                            {item.label}
+                                        </a>
+                                    </li>
+                                ))}
+                            </motion.ul>
+                        )}
+                    </AnimatePresence>
+                </div>
+            </nav>
+        </div>
+    )
+}
+
+export default Navbar`}</CodeBlock>
+
+                    <h3 className="font-semibold text-lg mt-6">Hero.jsx</h3>
+                    <CodeBlock>{`import { useState } from 'react'
+import { NAVIGATION_LINKS } from '../constants/constants';
+import { FaTimes } from 'react-icons/fa';
+import { FaBars } from 'react-icons/fa6';
+import { AnimatePresence, motion } from 'motion/react';
+
+function Navbar() {
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    const toggleMobileMenu = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen);
+    };
+
+    const handleLinkClick = (e, href) => {
+        e.preventDefault();
+        const targetElement = document.querySelector(href);
+        if (targetElement) {
+            const offset = -25;
+            const elemantPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elemantPosition + window.scrollY + offset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth"
+            });
+            setIsMobileMenuOpen(false);
+        }
+    };
+
+    return (
+        <div>
+            <nav className='fixed left-0 right-0 top-4 z-50'>
+                {/* Desktop Navbar */}
+                <div className='mx-auto hidden max-w-2xl items-center justify-center rounded-lg border border-stone-50/30 bg-black/20 py-3 backdrop-blur-lg lg:flex'>
+                    <div className='flex items-center justify-center gap-6'>
+                        <div>
+                            <a href="/">
+                                <img src="image.decorative/Pachara.png" width={100} alt="Logo" />
+                            </a>
+                        </div>
+                        <div>
+                            <ul className='flex items-center gap-4'>
+                                {NAVIGATION_LINKS.map((item, index) => (
+                                    <li key={index}>
+                                        <a href={item.href} onClick={(e) => handleLinkClick(e, item.href)} className="text-white hover:text-stone-300 transition-colors duration-300">
+                                            {item.label}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {/* Mobile Navbar */}
+                <div className='rounded-lg backdrop-blur-md lg:hidden'>
+                    <div className='flex items-center justify-between mx-5'>
+                        <div>
+                            <a href="/">
+                                <img src="image.decorative/Pachara.png" width={100} alt="Logo" />
+                            </a>
+                        </div>
+                        <div>
+                            <button className='focus:outline-none lg:hidden' onClick={toggleMobileMenu}>
+                                {isMobileMenuOpen ? (
+                                    <FaTimes className='text-white' size={30} />
+                                ) : (
+                                    <FaBars className='text-white' size={30} />
+                                )}
+                            </button>
+                        </div>
+                    </div>
+                    <AnimatePresence>
+                        {isMobileMenuOpen && (
+                            <motion.ul
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                transition={{ duration: 0.2, ease: "easeInOut" }}
+                                className="mx-4 mb-4 flex flex-col gap-4 backdrop-blur-md rounded-md p-4"
+                            >
+                                {NAVIGATION_LINKS.map((item, index) => (
+                                    <li key={index}>
+                                        <a
+                                            href={item.href}
+                                            className="block w-full text-[#ffffff] text-lg hover:text-purple-400 transition-colors"
+                                            onClick={(e) => handleLinkClick(e, item.href)}
+                                        >
+                                            {item.label}
+                                        </a>
+                                    </li>
+                                ))}
+                            </motion.ul>
+                        )}
+                    </AnimatePresence>
+                </div>
+            </nav>
+        </div>
+    )
+}
+
+export default Navbar`}</CodeBlock>
+
+                    <h3 className="font-semibold text-lg mt-6">About.jsx</h3>
+                    <CodeBlock>{`import { useState } from 'react'
+import { NAVIGATION_LINKS } from '../constants/constants';
+import { FaTimes } from 'react-icons/fa';
+import { FaBars } from 'react-icons/fa6';
+import { AnimatePresence, motion } from 'motion/react';
+
+function Navbar() {
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    const toggleMobileMenu = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen);
+    };
+
+    const handleLinkClick = (e, href) => {
+        e.preventDefault();
+        const targetElement = document.querySelector(href);
+        if (targetElement) {
+            const offset = -25;
+            const elemantPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elemantPosition + window.scrollY + offset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth"
+            });
+            setIsMobileMenuOpen(false);
+        }
+    };
+
+    return (
+        <div>
+            <nav className='fixed left-0 right-0 top-4 z-50'>
+                {/* Desktop Navbar */}
+                <div className='mx-auto hidden max-w-2xl items-center justify-center rounded-lg border border-stone-50/30 bg-black/20 py-3 backdrop-blur-lg lg:flex'>
+                    <div className='flex items-center justify-center gap-6'>
+                        <div>
+                            <a href="/">
+                                <img src="image.decorative/Pachara.png" width={100} alt="Logo" />
+                            </a>
+                        </div>
+                        <div>
+                            <ul className='flex items-center gap-4'>
+                                {NAVIGATION_LINKS.map((item, index) => (
+                                    <li key={index}>
+                                        <a href={item.href} onClick={(e) => handleLinkClick(e, item.href)} className="text-white hover:text-stone-300 transition-colors duration-300">
+                                            {item.label}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {/* Mobile Navbar */}
+                <div className='rounded-lg backdrop-blur-md lg:hidden'>
+                    <div className='flex items-center justify-between mx-5'>
+                        <div>
+                            <a href="/">
+                                <img src="image.decorative/Pachara.png" width={100} alt="Logo" />
+                            </a>
+                        </div>
+                        <div>
+                            <button className='focus:outline-none lg:hidden' onClick={toggleMobileMenu}>
+                                {isMobileMenuOpen ? (
+                                    <FaTimes className='text-white' size={30} />
+                                ) : (
+                                    <FaBars className='text-white' size={30} />
+                                )}
+                            </button>
+                        </div>
+                    </div>
+                    <AnimatePresence>
+                        {isMobileMenuOpen && (
+                            <motion.ul
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                transition={{ duration: 0.2, ease: "easeInOut" }}
+                                className="mx-4 mb-4 flex flex-col gap-4 backdrop-blur-md rounded-md p-4"
+                            >
+                                {NAVIGATION_LINKS.map((item, index) => (
+                                    <li key={index}>
+                                        <a
+                                            href={item.href}
+                                            className="block w-full text-[#ffffff] text-lg hover:text-purple-400 transition-colors"
+                                            onClick={(e) => handleLinkClick(e, item.href)}
+                                        >
+                                            {item.label}
+                                        </a>
+                                    </li>
+                                ))}
+                            </motion.ul>
+                        )}
+                    </AnimatePresence>
+                </div>
+            </nav>
+        </div>
+    )
+}
+
+export default Navbar`}</CodeBlock>
+                    <h3 className="font-semibold text-lg mt-6">Education.jsx</h3>
+                    <CodeBlock>{`import { useState } from 'react'
+import { NAVIGATION_LINKS } from '../constants/constants';
+import { FaTimes } from 'react-icons/fa';
+import { FaBars } from 'react-icons/fa6';
+import { AnimatePresence, motion } from 'motion/react';
+
+function Navbar() {
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    const toggleMobileMenu = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen);
+    };
+
+    const handleLinkClick = (e, href) => {
+        e.preventDefault();
+        const targetElement = document.querySelector(href);
+        if (targetElement) {
+            const offset = -25;
+            const elemantPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elemantPosition + window.scrollY + offset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth"
+            });
+            setIsMobileMenuOpen(false);
+        }
+    };
+
+    return (
+        <div>
+            <nav className='fixed left-0 right-0 top-4 z-50'>
+                {/* Desktop Navbar */}
+                <div className='mx-auto hidden max-w-2xl items-center justify-center rounded-lg border border-stone-50/30 bg-black/20 py-3 backdrop-blur-lg lg:flex'>
+                    <div className='flex items-center justify-center gap-6'>
+                        <div>
+                            <a href="/">
+                                <img src="image.decorative/Pachara.png" width={100} alt="Logo" />
+                            </a>
+                        </div>
+                        <div>
+                            <ul className='flex items-center gap-4'>
+                                {NAVIGATION_LINKS.map((item, index) => (
+                                    <li key={index}>
+                                        <a href={item.href} onClick={(e) => handleLinkClick(e, item.href)} className="text-white hover:text-stone-300 transition-colors duration-300">
+                                            {item.label}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {/* Mobile Navbar */}
+                <div className='rounded-lg backdrop-blur-md lg:hidden'>
+                    <div className='flex items-center justify-between mx-5'>
+                        <div>
+                            <a href="/">
+                                <img src="image.decorative/Pachara.png" width={100} alt="Logo" />
+                            </a>
+                        </div>
+                        <div>
+                            <button className='focus:outline-none lg:hidden' onClick={toggleMobileMenu}>
+                                {isMobileMenuOpen ? (
+                                    <FaTimes className='text-white' size={30} />
+                                ) : (
+                                    <FaBars className='text-white' size={30} />
+                                )}
+                            </button>
+                        </div>
+                    </div>
+                    <AnimatePresence>
+                        {isMobileMenuOpen && (
+                            <motion.ul
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                transition={{ duration: 0.2, ease: "easeInOut" }}
+                                className="mx-4 mb-4 flex flex-col gap-4 backdrop-blur-md rounded-md p-4"
+                            >
+                                {NAVIGATION_LINKS.map((item, index) => (
+                                    <li key={index}>
+                                        <a
+                                            href={item.href}
+                                            className="block w-full text-[#ffffff] text-lg hover:text-purple-400 transition-colors"
+                                            onClick={(e) => handleLinkClick(e, item.href)}
+                                        >
+                                            {item.label}
+                                        </a>
+                                    </li>
+                                ))}
+                            </motion.ul>
+                        )}
+                    </AnimatePresence>
+                </div>
+            </nav>
+        </div>
+    )
+}
+
+export default Navbar`}</CodeBlock>
+
+                    <h3 className="font-semibold text-lg mt-6">Projects.jsx</h3>
+                    <CodeBlock>{`import { useState } from 'react'
+import { NAVIGATION_LINKS } from '../constants/constants';
+import { FaTimes } from 'react-icons/fa';
+import { FaBars } from 'react-icons/fa6';
+import { AnimatePresence, motion } from 'motion/react';
+
+function Navbar() {
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    const toggleMobileMenu = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen);
+    };
+
+    const handleLinkClick = (e, href) => {
+        e.preventDefault();
+        const targetElement = document.querySelector(href);
+        if (targetElement) {
+            const offset = -25;
+            const elemantPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elemantPosition + window.scrollY + offset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth"
+            });
+            setIsMobileMenuOpen(false);
+        }
+    };
+
+    return (
+        <div>
+            <nav className='fixed left-0 right-0 top-4 z-50'>
+                {/* Desktop Navbar */}
+                <div className='mx-auto hidden max-w-2xl items-center justify-center rounded-lg border border-stone-50/30 bg-black/20 py-3 backdrop-blur-lg lg:flex'>
+                    <div className='flex items-center justify-center gap-6'>
+                        <div>
+                            <a href="/">
+                                <img src="image.decorative/Pachara.png" width={100} alt="Logo" />
+                            </a>
+                        </div>
+                        <div>
+                            <ul className='flex items-center gap-4'>
+                                {NAVIGATION_LINKS.map((item, index) => (
+                                    <li key={index}>
+                                        <a href={item.href} onClick={(e) => handleLinkClick(e, item.href)} className="text-white hover:text-stone-300 transition-colors duration-300">
+                                            {item.label}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {/* Mobile Navbar */}
+                <div className='rounded-lg backdrop-blur-md lg:hidden'>
+                    <div className='flex items-center justify-between mx-5'>
+                        <div>
+                            <a href="/">
+                                <img src="image.decorative/Pachara.png" width={100} alt="Logo" />
+                            </a>
+                        </div>
+                        <div>
+                            <button className='focus:outline-none lg:hidden' onClick={toggleMobileMenu}>
+                                {isMobileMenuOpen ? (
+                                    <FaTimes className='text-white' size={30} />
+                                ) : (
+                                    <FaBars className='text-white' size={30} />
+                                )}
+                            </button>
+                        </div>
+                    </div>
+                    <AnimatePresence>
+                        {isMobileMenuOpen && (
+                            <motion.ul
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                transition={{ duration: 0.2, ease: "easeInOut" }}
+                                className="mx-4 mb-4 flex flex-col gap-4 backdrop-blur-md rounded-md p-4"
+                            >
+                                {NAVIGATION_LINKS.map((item, index) => (
+                                    <li key={index}>
+                                        <a
+                                            href={item.href}
+                                            className="block w-full text-[#ffffff] text-lg hover:text-purple-400 transition-colors"
+                                            onClick={(e) => handleLinkClick(e, item.href)}
+                                        >
+                                            {item.label}
+                                        </a>
+                                    </li>
+                                ))}
+                            </motion.ul>
+                        )}
+                    </AnimatePresence>
+                </div>
+            </nav>
+        </div>
+    )
+}
+
+export default Navbar`}</CodeBlock>
+
+                    <h3 className="font-semibold text-lg mt-6">ImageShowcase.jsx</h3>
+                    <CodeBlock>{`import { useState } from 'react'
+import { NAVIGATION_LINKS } from '../constants/constants';
+import { FaTimes } from 'react-icons/fa';
+import { FaBars } from 'react-icons/fa6';
+import { AnimatePresence, motion } from 'motion/react';
+
+function Navbar() {
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    const toggleMobileMenu = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen);
+    };
+
+    const handleLinkClick = (e, href) => {
+        e.preventDefault();
+        const targetElement = document.querySelector(href);
+        if (targetElement) {
+            const offset = -25;
+            const elemantPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elemantPosition + window.scrollY + offset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth"
+            });
+            setIsMobileMenuOpen(false);
+        }
+    };
+
+    return (
+        <div>
+            <nav className='fixed left-0 right-0 top-4 z-50'>
+                {/* Desktop Navbar */}
+                <div className='mx-auto hidden max-w-2xl items-center justify-center rounded-lg border border-stone-50/30 bg-black/20 py-3 backdrop-blur-lg lg:flex'>
+                    <div className='flex items-center justify-center gap-6'>
+                        <div>
+                            <a href="/">
+                                <img src="image.decorative/Pachara.png" width={100} alt="Logo" />
+                            </a>
+                        </div>
+                        <div>
+                            <ul className='flex items-center gap-4'>
+                                {NAVIGATION_LINKS.map((item, index) => (
+                                    <li key={index}>
+                                        <a href={item.href} onClick={(e) => handleLinkClick(e, item.href)} className="text-white hover:text-stone-300 transition-colors duration-300">
+                                            {item.label}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {/* Mobile Navbar */}
+                <div className='rounded-lg backdrop-blur-md lg:hidden'>
+                    <div className='flex items-center justify-between mx-5'>
+                        <div>
+                            <a href="/">
+                                <img src="image.decorative/Pachara.png" width={100} alt="Logo" />
+                            </a>
+                        </div>
+                        <div>
+                            <button className='focus:outline-none lg:hidden' onClick={toggleMobileMenu}>
+                                {isMobileMenuOpen ? (
+                                    <FaTimes className='text-white' size={30} />
+                                ) : (
+                                    <FaBars className='text-white' size={30} />
+                                )}
+                            </button>
+                        </div>
+                    </div>
+                    <AnimatePresence>
+                        {isMobileMenuOpen && (
+                            <motion.ul
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                transition={{ duration: 0.2, ease: "easeInOut" }}
+                                className="mx-4 mb-4 flex flex-col gap-4 backdrop-blur-md rounded-md p-4"
+                            >
+                                {NAVIGATION_LINKS.map((item, index) => (
+                                    <li key={index}>
+                                        <a
+                                            href={item.href}
+                                            className="block w-full text-[#ffffff] text-lg hover:text-purple-400 transition-colors"
+                                            onClick={(e) => handleLinkClick(e, item.href)}
+                                        >
+                                            {item.label}
+                                        </a>
+                                    </li>
+                                ))}
+                            </motion.ul>
+                        )}
+                    </AnimatePresence>
+                </div>
+            </nav>
+        </div>
+    )
+}
+
+export default Navbar`}</CodeBlock>
+                    <h3 className="font-semibold text-lg mt-6">VideoShowcase.jsx</h3>
+                    <CodeBlock>{`import { useState } from 'react'
+import { NAVIGATION_LINKS } from '../constants/constants';
+import { FaTimes } from 'react-icons/fa';
+import { FaBars } from 'react-icons/fa6';
+import { AnimatePresence, motion } from 'motion/react';
+
+function Navbar() {
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    const toggleMobileMenu = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen);
+    };
+
+    const handleLinkClick = (e, href) => {
+        e.preventDefault();
+        const targetElement = document.querySelector(href);
+        if (targetElement) {
+            const offset = -25;
+            const elemantPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elemantPosition + window.scrollY + offset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth"
+            });
+            setIsMobileMenuOpen(false);
+        }
+    };
+
+    return (
+        <div>
+            <nav className='fixed left-0 right-0 top-4 z-50'>
+                {/* Desktop Navbar */}
+                <div className='mx-auto hidden max-w-2xl items-center justify-center rounded-lg border border-stone-50/30 bg-black/20 py-3 backdrop-blur-lg lg:flex'>
+                    <div className='flex items-center justify-center gap-6'>
+                        <div>
+                            <a href="/">
+                                <img src="image.decorative/Pachara.png" width={100} alt="Logo" />
+                            </a>
+                        </div>
+                        <div>
+                            <ul className='flex items-center gap-4'>
+                                {NAVIGATION_LINKS.map((item, index) => (
+                                    <li key={index}>
+                                        <a href={item.href} onClick={(e) => handleLinkClick(e, item.href)} className="text-white hover:text-stone-300 transition-colors duration-300">
+                                            {item.label}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {/* Mobile Navbar */}
+                <div className='rounded-lg backdrop-blur-md lg:hidden'>
+                    <div className='flex items-center justify-between mx-5'>
+                        <div>
+                            <a href="/">
+                                <img src="image.decorative/Pachara.png" width={100} alt="Logo" />
+                            </a>
+                        </div>
+                        <div>
+                            <button className='focus:outline-none lg:hidden' onClick={toggleMobileMenu}>
+                                {isMobileMenuOpen ? (
+                                    <FaTimes className='text-white' size={30} />
+                                ) : (
+                                    <FaBars className='text-white' size={30} />
+                                )}
+                            </button>
+                        </div>
+                    </div>
+                    <AnimatePresence>
+                        {isMobileMenuOpen && (
+                            <motion.ul
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                transition={{ duration: 0.2, ease: "easeInOut" }}
+                                className="mx-4 mb-4 flex flex-col gap-4 backdrop-blur-md rounded-md p-4"
+                            >
+                                {NAVIGATION_LINKS.map((item, index) => (
+                                    <li key={index}>
+                                        <a
+                                            href={item.href}
+                                            className="block w-full text-[#ffffff] text-lg hover:text-purple-400 transition-colors"
+                                            onClick={(e) => handleLinkClick(e, item.href)}
+                                        >
+                                            {item.label}
+                                        </a>
+                                    </li>
+                                ))}
+                            </motion.ul>
+                        )}
+                    </AnimatePresence>
+                </div>
+            </nav>
+        </div>
+    )
+}
+
+export default Navbar`}</CodeBlock>
+                    <h3 className="font-semibold text-lg mt-6">Skills.jsx</h3>
+                    <CodeBlock>{`import { useState } from 'react'
+import { NAVIGATION_LINKS } from '../constants/constants';
+import { FaTimes } from 'react-icons/fa';
+import { FaBars } from 'react-icons/fa6';
+import { AnimatePresence, motion } from 'motion/react';
+
+function Navbar() {
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    const toggleMobileMenu = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen);
+    };
+
+    const handleLinkClick = (e, href) => {
+        e.preventDefault();
+        const targetElement = document.querySelector(href);
+        if (targetElement) {
+            const offset = -25;
+            const elemantPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elemantPosition + window.scrollY + offset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth"
+            });
+            setIsMobileMenuOpen(false);
+        }
+    };
+
+    return (
+        <div>
+            <nav className='fixed left-0 right-0 top-4 z-50'>
+                {/* Desktop Navbar */}
+                <div className='mx-auto hidden max-w-2xl items-center justify-center rounded-lg border border-stone-50/30 bg-black/20 py-3 backdrop-blur-lg lg:flex'>
+                    <div className='flex items-center justify-center gap-6'>
+                        <div>
+                            <a href="/">
+                                <img src="image.decorative/Pachara.png" width={100} alt="Logo" />
+                            </a>
+                        </div>
+                        <div>
+                            <ul className='flex items-center gap-4'>
+                                {NAVIGATION_LINKS.map((item, index) => (
+                                    <li key={index}>
+                                        <a href={item.href} onClick={(e) => handleLinkClick(e, item.href)} className="text-white hover:text-stone-300 transition-colors duration-300">
+                                            {item.label}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {/* Mobile Navbar */}
+                <div className='rounded-lg backdrop-blur-md lg:hidden'>
+                    <div className='flex items-center justify-between mx-5'>
+                        <div>
+                            <a href="/">
+                                <img src="image.decorative/Pachara.png" width={100} alt="Logo" />
+                            </a>
+                        </div>
+                        <div>
+                            <button className='focus:outline-none lg:hidden' onClick={toggleMobileMenu}>
+                                {isMobileMenuOpen ? (
+                                    <FaTimes className='text-white' size={30} />
+                                ) : (
+                                    <FaBars className='text-white' size={30} />
+                                )}
+                            </button>
+                        </div>
+                    </div>
+                    <AnimatePresence>
+                        {isMobileMenuOpen && (
+                            <motion.ul
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                transition={{ duration: 0.2, ease: "easeInOut" }}
+                                className="mx-4 mb-4 flex flex-col gap-4 backdrop-blur-md rounded-md p-4"
+                            >
+                                {NAVIGATION_LINKS.map((item, index) => (
+                                    <li key={index}>
+                                        <a
+                                            href={item.href}
+                                            className="block w-full text-[#ffffff] text-lg hover:text-purple-400 transition-colors"
+                                            onClick={(e) => handleLinkClick(e, item.href)}
+                                        >
+                                            {item.label}
+                                        </a>
+                                    </li>
+                                ))}
+                            </motion.ul>
+                        )}
+                    </AnimatePresence>
+                </div>
+            </nav>
+        </div>
+    )
+}
+
+export default Navbar`}</CodeBlock>
+                    <h3 className="font-semibold text-lg mt-6">Contact.jsx</h3>
+                    <CodeBlock>{`import { useState } from 'react'
+import { NAVIGATION_LINKS } from '../constants/constants';
+import { FaTimes } from 'react-icons/fa';
+import { FaBars } from 'react-icons/fa6';
+import { AnimatePresence, motion } from 'motion/react';
+
+function Navbar() {
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    const toggleMobileMenu = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen);
+    };
+
+    const handleLinkClick = (e, href) => {
+        e.preventDefault();
+        const targetElement = document.querySelector(href);
+        if (targetElement) {
+            const offset = -25;
+            const elemantPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elemantPosition + window.scrollY + offset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth"
+            });
+            setIsMobileMenuOpen(false);
+        }
+    };
+
+    return (
+        <div>
+            <nav className='fixed left-0 right-0 top-4 z-50'>
+                {/* Desktop Navbar */}
+                <div className='mx-auto hidden max-w-2xl items-center justify-center rounded-lg border border-stone-50/30 bg-black/20 py-3 backdrop-blur-lg lg:flex'>
+                    <div className='flex items-center justify-center gap-6'>
+                        <div>
+                            <a href="/">
+                                <img src="image.decorative/Pachara.png" width={100} alt="Logo" />
+                            </a>
+                        </div>
+                        <div>
+                            <ul className='flex items-center gap-4'>
+                                {NAVIGATION_LINKS.map((item, index) => (
+                                    <li key={index}>
+                                        <a href={item.href} onClick={(e) => handleLinkClick(e, item.href)} className="text-white hover:text-stone-300 transition-colors duration-300">
+                                            {item.label}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {/* Mobile Navbar */}
+                <div className='rounded-lg backdrop-blur-md lg:hidden'>
+                    <div className='flex items-center justify-between mx-5'>
+                        <div>
+                            <a href="/">
+                                <img src="image.decorative/Pachara.png" width={100} alt="Logo" />
+                            </a>
+                        </div>
+                        <div>
+                            <button className='focus:outline-none lg:hidden' onClick={toggleMobileMenu}>
+                                {isMobileMenuOpen ? (
+                                    <FaTimes className='text-white' size={30} />
+                                ) : (
+                                    <FaBars className='text-white' size={30} />
+                                )}
+                            </button>
+                        </div>
+                    </div>
+                    <AnimatePresence>
+                        {isMobileMenuOpen && (
+                            <motion.ul
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                transition={{ duration: 0.2, ease: "easeInOut" }}
+                                className="mx-4 mb-4 flex flex-col gap-4 backdrop-blur-md rounded-md p-4"
+                            >
+                                {NAVIGATION_LINKS.map((item, index) => (
+                                    <li key={index}>
+                                        <a
+                                            href={item.href}
+                                            className="block w-full text-[#ffffff] text-lg hover:text-purple-400 transition-colors"
+                                            onClick={(e) => handleLinkClick(e, item.href)}
+                                        >
+                                            {item.label}
+                                        </a>
+                                    </li>
+                                ))}
+                            </motion.ul>
+                        )}
+                    </AnimatePresence>
+                </div>
+            </nav>
+        </div>
+    )
+}
+
+export default Navbar`}</CodeBlock>
+                    <h3 className="font-semibold text-lg mt-6">Footer.jsx</h3>
+                    <CodeBlock>{`import { useState } from 'react'
+import { NAVIGATION_LINKS } from '../constants/constants';
+import { FaTimes } from 'react-icons/fa';
+import { FaBars } from 'react-icons/fa6';
+import { AnimatePresence, motion } from 'motion/react';
+
+function Navbar() {
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    const toggleMobileMenu = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen);
+    };
+
+    const handleLinkClick = (e, href) => {
+        e.preventDefault();
+        const targetElement = document.querySelector(href);
+        if (targetElement) {
+            const offset = -25;
+            const elemantPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elemantPosition + window.scrollY + offset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth"
+            });
+            setIsMobileMenuOpen(false);
+        }
+    };
+
+    return (
+        <div>
+            <nav className='fixed left-0 right-0 top-4 z-50'>
+                {/* Desktop Navbar */}
+                <div className='mx-auto hidden max-w-2xl items-center justify-center rounded-lg border border-stone-50/30 bg-black/20 py-3 backdrop-blur-lg lg:flex'>
+                    <div className='flex items-center justify-center gap-6'>
+                        <div>
+                            <a href="/">
+                                <img src="image.decorative/Pachara.png" width={100} alt="Logo" />
+                            </a>
+                        </div>
+                        <div>
+                            <ul className='flex items-center gap-4'>
+                                {NAVIGATION_LINKS.map((item, index) => (
+                                    <li key={index}>
+                                        <a href={item.href} onClick={(e) => handleLinkClick(e, item.href)} className="text-white hover:text-stone-300 transition-colors duration-300">
+                                            {item.label}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {/* Mobile Navbar */}
+                <div className='rounded-lg backdrop-blur-md lg:hidden'>
+                    <div className='flex items-center justify-between mx-5'>
+                        <div>
+                            <a href="/">
+                                <img src="image.decorative/Pachara.png" width={100} alt="Logo" />
+                            </a>
+                        </div>
+                        <div>
+                            <button className='focus:outline-none lg:hidden' onClick={toggleMobileMenu}>
+                                {isMobileMenuOpen ? (
+                                    <FaTimes className='text-white' size={30} />
+                                ) : (
+                                    <FaBars className='text-white' size={30} />
+                                )}
+                            </button>
+                        </div>
+                    </div>
+                    <AnimatePresence>
+                        {isMobileMenuOpen && (
+                            <motion.ul
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                transition={{ duration: 0.2, ease: "easeInOut" }}
+                                className="mx-4 mb-4 flex flex-col gap-4 backdrop-blur-md rounded-md p-4"
+                            >
+                                {NAVIGATION_LINKS.map((item, index) => (
+                                    <li key={index}>
+                                        <a
+                                            href={item.href}
+                                            className="block w-full text-[#ffffff] text-lg hover:text-purple-400 transition-colors"
+                                            onClick={(e) => handleLinkClick(e, item.href)}
+                                        >
+                                            {item.label}
+                                        </a>
+                                    </li>
+                                ))}
+                            </motion.ul>
+                        )}
+                    </AnimatePresence>
+                </div>
+            </nav>
+        </div>
+    )
+}
+
+export default Navbar`}</CodeBlock>
                 </Section>
 
                 <footer className="text-center text-slate-500 mt-20">
