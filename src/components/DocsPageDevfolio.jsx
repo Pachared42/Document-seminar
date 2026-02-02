@@ -43,7 +43,7 @@ function DocsPageDevfolio() {
                     <p className="text-gray-400 mt-2 mb-6">
                         คู่มือการติดตั้งและจัดโครงสร้างโปรเจกต์ React Portfolio ตั้งแต่เริ่มต้น
                     </p>
-                    <img className='mb-4 rounded-2xl' src="/PortfolioSeminar.jpg" alt="Portfolio Seminar" />
+                    <img className='mb-4 rounded-2xl' src="/PortfolioSeminar.png" alt="Portfolio Seminar" />
                 </header>
 
                 <Section title="ขั้นตอนที่ 1: ติดตั้ง Git">
