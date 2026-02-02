@@ -1,44 +1,16 @@
 import { Link } from "react-router-dom";
-
-const docs = [
-  {
-    id: "DocsPageDevfolio",
-    title: "Portfolio Seminar + Deploy ขึ้น Vercel",
-    desc: "อธิบายขั้นตอนการพัฒนา Portfolio ด้วย React, TailwindCSS และ Motion พร้อมสอนการใช้งาน Git, GitHub และการ Deploy เว็บไซต์ขึ้น Vercel",
-    image: "/PortfolioSeminar.jpg",
-    tags: ["React", "TailwindCSS", "Motion", "Git", "GitHub", "Vercel"],
-  },
-  {
-    id: "DocsPageDevfolio",
-    title: "Portfolio Seminar + Deploy ขึ้น Vercel",
-    desc: "อธิบายขั้นตอนการพัฒนา Portfolio ด้วย React, TailwindCSS และ Motion พร้อมสอนการใช้งาน Git, GitHub และการ Deploy เว็บไซต์ขึ้น Vercel",
-    image: "/PortfolioSeminar.jpg",
-    tags: ["React", "TailwindCSS", "Motion", "Git", "GitHub", "Vercel"],
-  },  {
-    id: "DocsPageDevfolio",
-    title: "Portfolio Seminar + Deploy ขึ้น Vercel",
-    desc: "อธิบายขั้นตอนการพัฒนา Portfolio ด้วย React, TailwindCSS และ Motion พร้อมสอนการใช้งาน Git, GitHub และการ Deploy เว็บไซต์ขึ้น Vercel",
-    image: "/PortfolioSeminar.jpg",
-    tags: ["React", "TailwindCSS", "Motion", "Git", "GitHub", "Vercel"],
-  },  {
-    id: "DocsPageDevfolio",
-    title: "Portfolio Seminar + Deploy ขึ้น Vercel",
-    desc: "อธิบายขั้นตอนการพัฒนา Portfolio ด้วย React, TailwindCSS และ Motion พร้อมสอนการใช้งาน Git, GitHub และการ Deploy เว็บไซต์ขึ้น Vercel",
-    image: "/PortfolioSeminar.jpg",
-    tags: ["React", "TailwindCSS", "Motion", "Git", "GitHub", "Vercel"],
-  },
-];
+import { docsList } from "../constants/docsList";
 
 function DocsList() {
   return (
     <div className="space-y-6">
-      {docs.map((doc) => (
+      {docsList.map((doc) => (
         <Link
           key={doc.id}
           to={`/docs/${doc.id}`}
           className="
             group
-            block bg-[#151821] rounded-2xl
+            block bg-[#0B0B10] rounded-2xl
             overflow-hidden border border-[#1f2330]
             hover:border-blue-500 transition
           "
@@ -70,8 +42,8 @@ function DocsList() {
                 <span
                   key={tag}
                   className="
-                    text-xs px-3 py-1 rounded-full
-                    bg-[#1f2330] text-gray-300
+                    text-sm px-3 py-1 rounded-lg
+                    bg-[#1f2330]  text-gray-300
                   "
                 >
                   {tag}
