@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLocation } from "react-router-dom";
 import Lottie from "lottie-react";
 import arrowUp from "../assets/arrowUp.json";
 
@@ -10,18 +11,32 @@ const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
 function ScrollProgressButton() {
   const [progress, setProgress] = useState(0);
+  const location = useLocation();
+
+  useEffect(() => {
+    setProgress(0);
+  }, [location.pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
+    
       const docHeight =
         document.documentElement.scrollHeight -
         document.documentElement.clientHeight;
-
-      const percent = Math.min(100, Math.round((scrollTop / docHeight) * 100));
-
-      setProgress(percent);
-    };
+    
+      if (docHeight <= 0) {
+        setProgress(0);
+        return;
+      }
+    
+      const percent = Math.min(
+        100,
+        Math.max(0, (scrollTop / docHeight) * 100)
+      );
+    
+      setProgress(Math.round(percent));
+    };    
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
