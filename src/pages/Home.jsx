@@ -1,5 +1,4 @@
 import DocsList from "./DocsList";
-import ScrollProgressButton from "../ui/ScrollProgressButton";
 
 function Home() {
   return (
@@ -10,7 +9,6 @@ function Home() {
           <p className="text-gray-400 mt-2">บทความและเอกสารสำหรับการเรียนรู้</p>
         </div>
         <DocsList />
-        <ScrollProgressButton />
       </div>
     </div>
   );
