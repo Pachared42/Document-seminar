@@ -99,7 +99,7 @@ function ScrollProgressButton() {
           {progress >= 95 ? (
             <Lottie animationData={arrowUp} loop className="w-10 h-10" />
           ) : (
-            <span className="font-semibold text-sm">{progress}%</span>
+            <span className="font-bold text-sm">{progress}</span>
           )}
         </div>
       </motion.button>
