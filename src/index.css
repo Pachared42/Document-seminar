@@ -1,6 +1,28 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap");
 @import "tailwindcss";
 
 * {
-    font-family: 'Noto Sans Thai', sans-serif;
+  font-family: "Noto Sans Thai", sans-serif;
+}
+
+.code-scrollbar::-webkit-scrollbar {
+  height: 8px;
+}
+
+.code-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.code-scrollbar::-webkit-scrollbar-thumb {
+  background: #4b5563;
+  border-radius: 999px;
+}
+
+.code-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #6b7280; /* slate-500 */
+}
+
+.code-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #4b5563 transparent;
 }
