@@ -15,7 +15,7 @@ function Navbar() {
                 transition-all duration-300 ease-out
                 group-hover:scale-110
                 group-hover:rotate-6
-                group-hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.6)]
+                group-hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.7)]
                 "
           />
 
@@ -29,7 +29,7 @@ function Navbar() {
           <NavLink
             to="/"
             className={({ isActive }) =>
-              isActive ? "font-semibold text-white" : "hover:text-blue-600"
+              isActive ? "font-semibold text-white" : "hover:text-blue-500"
             }
           >
             บทความทั้งหมด
