@@ -21,7 +21,7 @@ function DocsPageDevfolio() {
           </p>
           <img
             className="mb-4 rounded-2xl border border-[#1f2330]"
-            src="/PortfolioSeminar.png"
+            src="/DocsPageDevfolio/PortfolioSeminar.png"
             alt="Portfolio Seminar"
           />
         </header>
@@ -63,7 +63,7 @@ function DocsPageDevfolio() {
           <p className="mt-4 text-slate-100">ตัวอย่าง Username GitHub</p>
           <img
             className="rounded-2xl mt-2 border border-[#1f2330]"
-            src="/usernameGithub.jpeg"
+            src="/DocsPageDevfolio/usernameGithub.jpeg"
             alt="username Github"
           />
           <CodeBlock>{`git config --global user.email "email@example.com"`}</CodeBlock>
@@ -1247,7 +1247,7 @@ export default Projects;`}</CodeBlock>
 
           <img
             className="w-full rounded-2xl mt-8 border border-[#1f2330]"
-            src="/ReactBitsDefaultItems.png"
+            src="/DocsPageDevfolio/ReactBitsDefaultItems.png"
             alt="ReactBitsDefaultItems"
           />
 
@@ -1258,7 +1258,7 @@ export default Projects;`}</CodeBlock>
 
           <img
             className="w-full rounded-2xl mt-8 border border-[#1f2330]"
-            src="/ReactBits_vec3.png"
+            src="/DocsPageDevfolio/ReactBits_vec3.png"
             alt="ReactBits_vec3"
           />
 
