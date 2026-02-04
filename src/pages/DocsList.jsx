@@ -30,12 +30,8 @@ function DocsList() {
 
           {/* Content */}
           <div className="p-5">
-            <p className="text-sm text-gray-400 mb-1">{doc.date}</p>
-
             <h2 className="text-xl font-semibold text-white">{doc.title}</h2>
-
             <p className="text-gray-400 mt-2 text-sm">{doc.desc}</p>
-
             {/* Tags */}
             <div className="flex flex-wrap gap-2 mt-4">
               {doc.tags.map((tag) => (
