@@ -3,7 +3,7 @@ import PCR from "../assets/PCR.svg";
 
 function Navbar() {
   return (
-    <nav className="sticky top-5 z-50 mx-4 xl:mx-110 bg-[#0B0B10]/70 backdrop-blur-lg supports-backdrop-filter:bg-[#0B0B10]/60 border border-[#1f2330] rounded-2xl">
+    <nav className="sticky top-5 z-50 mx-4 lg:mx-50 xl:mx-55 2xl:mx-110 bg-[#0B0B10]/70 backdrop-blur-lg supports-backdrop-filter:bg-[#0B0B10]/60 border border-[#1f2330] rounded-2xl">
       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo + Title */}
         <Link to="/" className="group flex items-center gap-3">
