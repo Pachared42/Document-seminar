@@ -399,7 +399,7 @@ export const VIDEO_SHOWCASE = {
   items: [
     {
       thumbnail: "/image.videos/video1.jpg",
-      link: "https://www.youtube.com/watch?v=PeF28qjw10Q&t=4s",
+      link: "https://www.youtube.com/watch?v=yyyyy",
       title: "วิดีโอแนะนำบริการ",
       description:
         "รวบรวมความคิดเห็นและรีวิวจากลูกค้าเพื่อนำเสนอความน่าเชื่อถือ",
@@ -419,7 +419,7 @@ export const VIDEO_SHOWCASE = {
     },
     {
       thumbnail: "/image.videos/video4.jpg",
-      link: "https://www.youtube.com/watch?v=PeF28qjw10Q&t=4s",
+      link: "https://www.youtube.com/watch?v=yyyyy",
       title: "วิดีโอแนะนำบริการ",
       description:
         "รวบรวมความคิดเห็นและรีวิวจากลูกค้าเพื่อนำเสนอความน่าเชื่อถือ",
