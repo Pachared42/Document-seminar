@@ -227,8 +227,8 @@ import { FaGithub } from "react-icons/fa";
 
 export const NAVIGATION_LINKS = [
   { label: "ประวัติ", href: "#about" },
-  { label: "ผลงาน", href: "#projects" },
   { label: "การศึกษา", href: "#education" },
+  { label: "ผลงาน", href: "#projects" },
   { label: "ทักษะ", href: "#skills" },
   { label: "ติดต่อ", href: "#contact" },
 ];
