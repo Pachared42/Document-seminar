@@ -224,7 +224,6 @@ import { SiVercel } from "react-icons/si";
 import { FaFacebook } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
-import { th } from "motion/react-client";
 
 export const NAVIGATION_LINKS = [
   { label: "ประวัติ", href: "#about" },
