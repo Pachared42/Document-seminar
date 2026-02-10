@@ -2118,7 +2118,7 @@ export default App;`}</CodeBlock>
 
           <p className="mt-6 text-slate-100">ตัวอย่าง Profile Github README</p>
           <img
-            className="rounded-2xl mt-6 border border-[#1f2330]"
+            className="w-full rounded-2xl mt-6 border border-[#1f2330]"
             src="/DocsPageDevfolio/ProfileGithubREADME.png"
             alt="username Github"
           />
