@@ -174,8 +174,8 @@ src
 │  ├─ Skills.jsx
 │  ├─ Contact.jsx
 │  └─ Footer.jsx
-├─ App.jsx
 ├─ App.css
+├─ App.jsx
 ├─ index.css
 └─ main.jsx`}</CodeBlock>
 
