@@ -26,7 +26,35 @@ function DocsPageDevfolio() {
           />
         </header>
 
-        <Section title="ขั้นตอนที่ 1: ติดตั้ง Git">
+        <Section title="ขั้นตอนที่ 1: ดาวน์โหลดรูปภาพจาก Github repository">
+          <ol className="list-decimal pl-6 space-y-2 text-slate-100">
+            <li>
+              เข้าเว็บไซต์{" "}
+              <a
+                href="https://github.com/Pachared42/image-seminar"
+                className="font-medium underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                image-seminar
+              </a>
+            </li>
+          </ol>
+          <p className="mt-4 text-slate-100">ตัวอย่างที่ 1</p>
+          <img
+            className="rounded-2xl mt-2 border border-[#1f2330]"
+            src="/DocsPageDevfolio/DownloadExample1.png"
+            alt="username Github"
+          />
+          <p className="mt-4 text-slate-100">ตัวอย่างที่ 2</p>
+          <img
+            className="rounded-2xl mt-2 border border-[#1f2330]"
+            src="/DocsPageDevfolio/DownloadExample2.png"
+            alt="username Github"
+          />
+        </Section>
+
+        <Section title="ขั้นตอนที่ 2: ติดตั้ง Git">
           <ol className="list-decimal pl-6 space-y-2 text-slate-100">
             <li>
               เข้าเว็บไซต์{" "}
@@ -87,16 +115,16 @@ core.logallrefupdates=true
 `}</CodeBlock>
         </Section>
 
-        <Section title="ขั้นตอนที่ 2: สร้างโปรเจกต์ด้วย Vite + React + TailwindCSS + Framer Motion">
+        <Section title="ขั้นตอนที่ 3: สร้างโปรเจกต์ด้วย Vite + React + TailwindCSS + Framer Motion">
           <h3 className="font-semibold text-lg mt-2 text-slate-100">
-            2.1 สร้างโปรเจกต์ Vite
+            3.1 สร้างโปรเจกต์ Vite
           </h3>
           <CodeBlock>{`cd Documents`}</CodeBlock>
           <CodeBlock>{`npm create vite@latest devfolio-pachara`}</CodeBlock>
           <CodeBlock>{`cd devfolio-pachara`}</CodeBlock>
           <CodeBlock>{`npm install`}</CodeBlock>
           <h3 className="font-semibold text-lg mt-6 text-slate-100">
-            2.2 ติดตั้ง TailwindCSS v4.1
+            3.2 ติดตั้ง TailwindCSS v4.1
           </h3>
           <p className="text-slate-100">
             เข้าเว็บไซต์{" "}
@@ -111,17 +139,17 @@ core.logallrefupdates=true
           </p>
 
           <h3 className="font-semibold text-lg mt-6 text-slate-100">
-            2.3 ติดตั้ง Framer Motion, React Icons & Lenis
+            3.3 ติดตั้ง Framer Motion, React Icons & Lenis
           </h3>
           <CodeBlock>{`npm install @studio-freight/lenis framer-motion react-icons`}</CodeBlock>
 
           <h3 className="font-semibold text-lg mt-6 text-slate-100">
-            2.4 Run Project
+            3.4 Run Project
           </h3>
           <CodeBlock>{`npm run dev`}</CodeBlock>
         </Section>
 
-        <Section title="ขั้นตอนที่ 3: สร้าง Folder Structure & Sections">
+        <Section title="ขั้นตอนที่ 4: สร้าง Folder Structure & Sections">
           <p className="text-slate-100 mb-4">
             โครงสร้างไฟล์สำหรับ Portfolio Website โดยแยก Section
           </p>
