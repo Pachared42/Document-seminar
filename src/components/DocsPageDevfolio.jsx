@@ -16,7 +16,7 @@ function DocsPageDevfolio() {
             Devfolio Seminar + Deploy ขึ้น Vercel
           </h1>
           <p className="text-gray-400 mt-2 mb-6">
-            คู่มือการติดตั้งและจัดโครงสร้างโปรเจกต์ React Portfolio
+            คู่มือการติดตั้งและจัดโครงสร้างโปรเจกต์ Devfolio
             ตั้งแต่เริ่มต้น
           </p>
           <img
