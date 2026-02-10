@@ -151,7 +151,7 @@ core.logallrefupdates=true
 
         <Section title="ขั้นตอนที่ 4: สร้าง Folder Structure & Sections">
           <p className="text-slate-100 mb-4">
-            โครงสร้างไฟล์สำหรับ Portfolio Website โดยแยก Section
+            โครงสร้างไฟล์สำหรับ Devfolio Website โดยแยก Section
           </p>
           <CodeBlock>{`public
 ├─ image.Hero
