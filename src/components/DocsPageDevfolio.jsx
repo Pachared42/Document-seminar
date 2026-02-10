@@ -2179,7 +2179,11 @@ export default App;`}</CodeBlock>
           <h3 className="font-semibold text-lg mt-6 text-slate-100">
             README.md
           </h3>
-          <CodeBlock>{`Hi ![](https://user-images.githubusercontent.com/18350557/176309783-0785949b-9127-417c-8b55-ab5a4333674e.gif) My name is Pachara Kalapakdee
+          <CodeBlock>{`<p align="center">
+  <img src="imageREADME.jpg" width="100%" />
+</p>
+
+Hi ![](https://user-images.githubusercontent.com/18350557/176309783-0785949b-9127-417c-8b55-ab5a4333674e.gif) My name is Pachara Kalapakdee
 ===========================================================================================================================================
 
 ### Front-End Developer | Passionate about UI/UX & Modern Web
