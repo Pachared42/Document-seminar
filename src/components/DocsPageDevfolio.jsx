@@ -328,66 +328,18 @@ export const PROJECTS = [
 ];
 
 export const GALLERY_IMAGES = [
-  {
-    image:
-      "https://ichef.bbci.co.uk/ace/standard/3840/cpsprodpb/cea1/live/1de105b0-f5a5-11ef-bcea-7b70a14a5556.jpg",
-    text: "",
-  },
-  {
-    image:
-      "https://media.formula1.com/image/upload/t_16by9North/c_lfill,w_3392/q_auto/v1740000000/trackside-images/2025/Formula_1_Testing_in_Bahrain___Day_3/2202490999.webp",
-    text: "",
-  },
-  {
-    image:
-      "https://cdn.shopify.com/s/files/1/0693/9957/6767/files/SF-25-still-both-02_6c1c08a1-5474-4cab-bc14-b32cb54c4785.jpg?v=1766483997",
-    text: "",
-  },
-  {
-    image:
-      "https://media.formula1.com/image/upload/c_lfill,w_2048/q_auto/v1740000000/content/dam/fom-website/manual/2023/Launches2023/Ferrari2023Launch/Ferrari%20front.webp",
-    text: "",
-  },
-  {
-    image:
-      "https://cdn-8.motorsport.com/images/amp/2jEDVkk0/s1000/scuderia-ferrari.jpg",
-    text: "",
-  },
-  {
-    image:
-      "https://cdn-2.motorsport.com/images/amp/YBVoVaMY/s6/charles-leclerc-ferrari.jpg",
-    text: "",
-  },
-  {
-    image:
-      "https://image.makewebcdn.com/makeweb/m_1920x0/ZeRUazFMT/contentPic/2023_Ferrari_SF_23_Bangkoksupercar_8.jpg",
-    text: "",
-  },
-  {
-    image:
-      "https://images.twinkl.co.uk/tw1n/image/private/t_630/u/ux/ferrari-pit-stop_ver_1.png",
-    text: "",
-  },
-  {
-    image:
-      "https://www.formulaonehistory.com/wp-content/uploads/2025/05/Charles-Leclerc-Ferrari-2025-Monaco-GP-FP1.webp",
-    text: "",
-  },
-  {
-    image:
-      "https://www.techzine.eu/wp-content/uploads/2024/04/shutterstock_2428935571.jpg",
-    text: "",
-  },
-  {
-    image:
-      "https://cdn.motorsport.com/images/mgl/YP7rOyX2/s1000/lewis-hamilton-ferrari-sf25.jpg",
-    text: "",
-  },
-  {
-    image:
-      "https://a.espncdn.com/combiner/i?img=/photo/2026/0127/r1606450_1296x729_16-9.jpg",
-    text: "",
-  },
+      { image: https://picsum.photos/seed/1/800/600?grayscale, text: 'Bridge' },
+      { image: https://picsum.photos/seed/2/800/600?grayscale, text: 'Desk Setup' },
+      { image: https://picsum.photos/seed/3/800/600?grayscale, text: 'Waterfall' },
+      { image: https://picsum.photos/seed/4/800/600?grayscale, text: 'Strawberries' },
+      { image: https://picsum.photos/seed/5/800/600?grayscale, text: 'Deep Diving' },
+      { image: https://picsum.photos/seed/16/800/600?grayscale, text: 'Train Track' },
+      { image: https://picsum.photos/seed/17/800/600?grayscale, text: 'Santorini' },
+      { image: https://picsum.photos/seed/8/800/600?grayscale, text: 'Blurry Lights' },
+      { image: https://picsum.photos/seed/9/800/600?grayscale, text: 'New York' },
+      { image: https://picsum.photos/seed/10/800/600?grayscale, text: 'Good Boy' },
+      { image: https://picsum.photos/seed/21/800/600?grayscale, text: 'Coastline' },
+      { image: https://picsum.photos/seed/12/800/600?grayscale, text: 'Palm Trees' }
 ];
 
 export const IMAGE_SHOWCASE = {
