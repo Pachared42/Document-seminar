@@ -653,6 +653,17 @@ export const SOCIAL_MEDIA_LINKS = [
   },
 ];`}</CodeBlock>
 
+<h3 className="font-semibold text-lg mt-6 text-slate-100">
+            index.css
+          </h3>
+          <CodeBlock>{`@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wdth,wght@62.5..100,100..900&family=Noto+Sans:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&display=swap');
+
+body {
+    font-family: "Noto Sans Thai", "Noto Sans", sans-serif;
+    background: #000000;
+    color: #ffffff;
+}`}</CodeBlock>
+
           <h3 className="font-semibold text-lg mt-6 text-slate-100">
             Navbar.jsx
           </h3>
